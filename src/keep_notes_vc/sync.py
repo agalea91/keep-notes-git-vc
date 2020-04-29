@@ -7,6 +7,8 @@ from tqdm import tqdm
 import json
 import datetime
 
+from keep_notes_vc.utils import format_filename
+
 if "GOOGLE_KEEP_APP_USER" not in os.environ:
     raise ValueError(
         "GOOGLE_KEEP_APP_USER must be present in .env"
@@ -52,7 +54,7 @@ class SyncService:
                 raise
             print("Exception raised:")
             print(e)
-            print("Sleeping {} seconds and trying again".format(self._login_sleep_time))
+            print("Sleeping {} seconds and trying again".format(self.login_sleep_time))
             print(time.sleep(self.login_fail_sleep_time))
             return self._login(num=num+1)
 
@@ -62,7 +64,7 @@ class SyncService:
 
 
     def _download_notes(self):
-        self.gnotes = keep.all()
+        self.gnotes = self.keep.all()
         print("Downloaded {} notes".format(len(self.gnotes)))
 
 
@@ -81,14 +83,16 @@ class SyncService:
             )
 
         if not os.path.isdir(self.filestore):
+            print('Making notes filestore: {}'.format(self.filestore))
             os.makedirs(self.filestore)
 
         for note in tqdm(self.gnotes):
             fields = self._parse_note_fields(note)
-            file_name = "{title}_{id}.txt".format(
+            file_name = "{title}.{id}.txt".format(
                 title=fields.get('title'),
                 id=fields.get('id')
             )
+            file_name = format_filename(file_name)
             file_path = os.path.join(self.filestore, file_name)
             _text = text.format(
                 date=self.apprun_date,
@@ -108,7 +112,7 @@ class SyncService:
         fields = {}
         fields["id"] = note.id or "none"
         fields["title"] = note.title or "unnamed"
-        fields["labels"] = ", ".join(note.labels.all())
+        fields["labels"] = ", ".join([label.name for label in note.labels.all()])
         fields["body"] = note.text
         return fields
 
