@@ -6,6 +6,7 @@ import os
 from tqdm import tqdm
 import json
 import datetime
+import textwrap
 
 from keep_notes_vc.utils import format_filename
 
@@ -69,14 +70,15 @@ class SyncService:
 
 
     def _write_notes_filestore(self):
-        text = """
+        text = textwrap.dedent("""
         last_sync_date: {date}
         id: {id}
-        title: {title}
         labels: {labels}
+        --------------------------------------------------
+        title: {title}
         body:
         {body}
-        """
+        """)
         if not self.gnotes:
             raise ValueError(
                 "No google notes downloaded. Exiting."
