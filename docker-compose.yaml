@@ -3,6 +3,6 @@ services:
   keep_app:
     build: .
     volumes:
-      - ./src/keep_notes_git:/app/src/keep_notes_git
+      - /Users/alex/Keep\ Notes\ Backup:/notes
     env_file:
       - ./.env
