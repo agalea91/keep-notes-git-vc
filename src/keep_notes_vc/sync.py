@@ -5,6 +5,7 @@ import time
 import os
 from tqdm import tqdm
 import json
+import datetime
 
 if "GOOGLE_KEEP_APP_USER" not in os.environ:
     raise ValueError(
@@ -42,7 +43,7 @@ class SyncService:
     def _login(self, num=0):
         print("Attempting to log in with .env credentials")
         try:
-            success = keep.login(
+            success = self.keep.login(
                 os.getenv("GOOGLE_KEEP_APP_USER"),
                 os.getenv("GOOGLE_KEEP_APP_PASS"),
             )
@@ -99,6 +100,8 @@ class SyncService:
             print("Writing to file: {}".format(file_name))
             with open(file_path, 'w') as f:
                 f.write(_text)
+
+        print("Done writing notes")
 
 
     def _parse_note_fields(self, note):
