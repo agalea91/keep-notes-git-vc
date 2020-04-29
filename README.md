@@ -13,15 +13,15 @@ git init
 git remote add origin <remote_uri>
 ```
 
-2. Modify notes volume in `docker-compose.yaml` if needed.
-
-3. Clone repo.
+2. Clone repo.
 
 ```
 cd ~/
 git clone https://github.com/agalea91/keep-notes-git-vc.git
 cd keep-notes-git-vc
 ```
+
+3. Modify "notes" volume in `docker-compose.yaml` if needed. Should mount the directory created in step 1.
 
 4. Create App Password for Google account and put info in `.env`.
 
