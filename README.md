@@ -2,7 +2,7 @@
 
 Log your Google Keep notes to git version control.
 
-1. Create git repo for your notes.
+1. Create git repo for your notes and connect it to remote.
 
 ```
 cd ~/
@@ -10,6 +10,7 @@ mkdir "Keep Notes Backup"
 cd "Keep Notes Backup"
 mkdir notes
 git init
+git remote add origin <remote_uri>
 ```
 
 2. Modify notes volume in `docker-compose.yaml` if needed.
