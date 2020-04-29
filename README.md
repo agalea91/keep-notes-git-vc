@@ -15,7 +15,15 @@ git remote add origin <remote_uri>
 
 2. Modify notes volume in `docker-compose.yaml` if needed.
 
-3. Create App Password for Google account and put info in `.env`.
+3. Clone repo.
+
+```
+cd ~/
+git clone https://github.com/agalea91/keep-notes-git-vc.git
+cd keep-notes-git-vc
+```
+
+4. Create App Password for Google account and put info in `.env`.
 
 ```
 cat > .env
@@ -23,11 +31,9 @@ GOOGLE_KEEP_APP_USER=<your_email>@gmail.com
 GOOGLE_KEEP_APP_PASS=<app_password>
 ```
 
-4. Build and run docker image.
+5. Build and run docker image.
 
 ```
-git clone https://github.com/agalea91/keep-notes-git-vc.git
-cd keep-notes-git-vc
 docker-compose up
 ```
 
