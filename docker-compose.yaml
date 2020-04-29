@@ -1,0 +1,8 @@
+version: '3.0'
+services:
+  keep_app:
+    build: .
+    volumes:
+      - ./src/keep_notes_git:/app/src/keep_notes_git
+    env_file:
+      - ./.env
