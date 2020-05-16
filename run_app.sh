@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Updating local filestore"
-docker-compose up
+docker-compose up --build
 
 echo "Updated remote filestore"
 cd ~/Keep\ Notes\ Backup \

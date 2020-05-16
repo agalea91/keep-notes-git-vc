@@ -55,7 +55,7 @@ class SyncService:
                 raise
             print("Exception raised:")
             print(e)
-            print("Sleeping {} seconds and trying again".format(self.login_sleep_time))
+            print("Sleeping {} seconds and trying again".format(self.login_fail_sleep_time))
             print(time.sleep(self.login_fail_sleep_time))
             return self._login(num=num+1)
 
